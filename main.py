@@ -48,12 +48,12 @@ if __name__ == "__main__":
 
     load_dotenv()
 
-    DATA_FILE = os.getenv("DATA_FILE")
-    SHEET_NAME = os.getenv("SHEET_NAME")
-    FOUNDATION_YEAR = int(os.getenv("FOUNDATION_YEAR"))
-    FOUNDATION_MONTH = int(os.getenv("FOUNDATION_MONTH"))
-    FOUNDATION_DAY = int(os.getenv("FOUNDATION_DAY"))
-    SECONDS_IN_YEAR = int(os.getenv("SECONDS_IN_YEAR"))
+    DATA_FILE = os.getenv("DATA_FILE", default='wine3.xlsx')
+    SHEET_NAME = os.getenv("SHEET_NAME", default='Лист1')
+    FOUNDATION_YEAR = int(os.getenv("FOUNDATION_YEAR", default=1920))
+    FOUNDATION_MONTH = int(os.getenv("FOUNDATION_MONTH", default=1))
+    FOUNDATION_DAY = int(os.getenv("FOUNDATION_DAY", default=1))
+    SECONDS_IN_YEAR = 31557600
     CURRENT_YEAR = datetime.date.today()
 
     env = Environment(
