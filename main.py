@@ -35,9 +35,9 @@ def format_year(year):
     return f"{year} лет"
 
 
-def count_age(foundation_year, current_year):
+def count_age(year, month, day, current_year):
     foundation_year = datetime.date(
-        year=FOUNDATION_YEAR, month=FOUNDATION_MONTH, day=FOUNDATION_DAY
+        year, month, day
     )
     age = int(
         (current_year - foundation_year).total_seconds() / SECONDS_IN_YEAR)
@@ -64,7 +64,9 @@ if __name__ == "__main__":
     drinks_list = read_xlsx(DATA_FILE, SHEET_NAME)
 
     rendered_page = template.render(
-        age=count_age(FOUNDATION_YEAR, CURRENT_YEAR), drinks=drinks_list
+        age=count_age(
+            FOUNDATION_YEAR, FOUNDATION_MONTH, FOUNDATION_DAY, CURRENT_YEAR
+            ), drinks=drinks_list
     )
 
     with open("index.html", "w", encoding="utf8") as file:
