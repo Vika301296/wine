@@ -37,37 +37,32 @@ def format_year(year):
     return f"{year} лет"
 
 
-def count_age(year, month, day, current_year):
-    foundation_year = datetime.date(
-        year, month, day
-    )
-    age = int(
-        (current_year - foundation_year).total_seconds() / SECONDS_IN_YEAR)
-    return format_year(age)
+def count_age(foundation_date, current_year):
+    age = (current_year - foundation_date).total_seconds() / SECONDS_IN_YEAR
+    return format_year(int(age))
 
 
 if __name__ == "__main__":
 
     load_dotenv()
 
-    DATA_FILE = os.getenv("DATA_FILE", default='wine3.xlsx')
-    SHEET_NAME = os.getenv("SHEET_NAME", default='Лист1')
-    FOUNDATION_YEAR = int(os.getenv("FOUNDATION_YEAR", default=1920))
-    FOUNDATION_MONTH = int(os.getenv("FOUNDATION_MONTH", default=1))
-    FOUNDATION_DAY = int(os.getenv("FOUNDATION_DAY", default=1))
-    CURRENT_YEAR = datetime.date.today()
+    data_file = os.getenv("DATA_FILE", default='wine3.xlsx')
+    sheet_name = os.getenv("SHEET_NAME", default='Лист1')
+    date = os.getenv("FOUNDATION_DATE", default='1920-01-01')
+    foundation_date = datetime.datetime.fromisoformat(date)
+    today = datetime.date.today()
+    today_datetime = datetime.datetime.combine(
+        today, datetime.datetime.min.time())
 
     env = Environment(
         loader=FileSystemLoader("."), autoescape=select_autoescape(["html"])
     )
     template = env.get_template("template.html")
 
-    drinks_list = read_xlsx(DATA_FILE, SHEET_NAME)
+    drinks_list = read_xlsx(data_file, sheet_name)
 
     rendered_page = template.render(
-        age=count_age(
-            FOUNDATION_YEAR, FOUNDATION_MONTH, FOUNDATION_DAY, CURRENT_YEAR
-            ), drinks=drinks_list
+        age=count_age(foundation_date, today_datetime), drinks=drinks_list
     )
 
     with open("index.html", "w", encoding="utf8") as file:
