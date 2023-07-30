@@ -8,6 +8,8 @@ from http.server import HTTPServer, SimpleHTTPRequestHandler
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
+SECONDS_IN_YEAR = 31557600
+
 
 def read_xlsx(data_file, sheet_name):
     excel_data_df = pandas.read_excel(
@@ -53,7 +55,6 @@ if __name__ == "__main__":
     FOUNDATION_YEAR = int(os.getenv("FOUNDATION_YEAR", default=1920))
     FOUNDATION_MONTH = int(os.getenv("FOUNDATION_MONTH", default=1))
     FOUNDATION_DAY = int(os.getenv("FOUNDATION_DAY", default=1))
-    SECONDS_IN_YEAR = 31557600
     CURRENT_YEAR = datetime.date.today()
 
     env = Environment(
