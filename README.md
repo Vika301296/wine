@@ -20,9 +20,7 @@ pip install -r requirements.txt
 ```
 DATA_FILE = 'wine3.xlsx'
 SHEET_NAME = 'Лист1'
-FOUNDATION_YEAR = 1920
-FOUNDATION_MONTH = 1
-FOUNDATION_DAY = 1
+FOUNDATION_DATE='1920-01-01'
 SECONDS_IN_YEAR = 31557600 
 ```
 - Запустите сайт командой 
